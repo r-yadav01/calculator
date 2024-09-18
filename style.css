@@ -7,6 +7,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color:beige;
 }
 .calc_body {
     border: 10px saddlebrown;
@@ -56,9 +57,12 @@ button.wide_butt {
     width: 120px;
 }
 
-button.operand, button.equals, button.clear {
-    background-color: burlywood;
+button.operator, button.equals, button.clear{
     border-color:sienna;
 }
 
+button.clear, button.equals {
+    background-color: burlywood;
+    font-weight: bold;
+}
 
