@@ -18,7 +18,7 @@ let num1 = '';
 let num2 = '';
 let operator;
 const operators = ['+', '-', '*', '/'];
-// let operInuse = 0;
+let operUsed = false;
 // let decInuse = 0;
 
 function operate(firNum, operator, secNum) {
@@ -28,6 +28,7 @@ function operate(firNum, operator, secNum) {
 
     if (isNaN(firNum) || isNaN(secNum)) {
         console.log(`firNum: ${firNum}, secNum: ${secNum}, operator: ${operator}`);
+        handleClear();
         return "numbers invalid";
     }
 
@@ -65,8 +66,7 @@ function buttListeners() {
     let clear = document.querySelector('.clear');
     clear.addEventListener('click', () => {
         handleClear();
-        screen.textContent = '';
-    })
+    }, true);
 
     let numButts = document.querySelectorAll('.num');
     numButts.forEach(numButt => {
@@ -83,8 +83,8 @@ function buttListeners() {
     let equal = document.querySelector('.equals');
     equal.addEventListener('click', () => {
         let result = operate(num1, operator, num2);
-        screen.textContent = result;
         handleClear();
+        screen.textContent = result;
     })
 
 }
@@ -104,9 +104,16 @@ function handleClear() {
     num1 = '';
     num2 = '';
     operator = '';
+    let screen = document.querySelector('.calc_screen');
+    screen.textContent = '';
 }
 
 function handleOperClick(e) {
+    if (operator) {
+        num1 = operate(num1, operator, num2);
+        // console.log(num1);
+    }
     operator = e.target.textContent;
+    num2 = '';
 }
 
