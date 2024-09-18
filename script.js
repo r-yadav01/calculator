@@ -43,8 +43,9 @@ function operate(firNum, operator, secNum) {
             result = multiply(firNum, secNum);
             break;
         case '/':
-            if (secNum === 0) {
+            if (secNum == 0) {
                 result = "don't do it!";
+                handleClear();
             } else {
                 result = divide(firNum, secNum);
             }
@@ -57,11 +58,10 @@ function operate(firNum, operator, secNum) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    buttListeners();
+    addButtListeners();
 })
 
-function buttListeners() {
-    let screen = document.querySelector('.calc_screen');
+function addButtListeners() {
 
     let clear = document.querySelector('.clear');
     clear.addEventListener('click', () => {
@@ -81,22 +81,39 @@ function buttListeners() {
     })
 
     let equal = document.querySelector('.equals');
-    equal.addEventListener('click', () => {
-        let result = operate(num1, operator, num2);
-        handleClear();
-        screen.textContent = result;
-    })
-
+    equal.addEventListener('click', handleEqual, true);
 }
 
-// number is clicked
+// function removeButtListeners() {
+
+// }
+
+function handleEqual() {
+    let screen = document.querySelector('.calc_screen');
+    let result = operate(num1, operator, num2);
+    if (isNaN(result)) {
+        screen.textContent = result;
+        // removeButtListeners();
+        setTimeout(() => {
+            handleClear();
+            // addButtListeners();
+        }, 2000)
+    } else {
+        handleClear();
+        screen.textContent = result;
+    }
+}
+
 function handleNumClick(e) {
+    let screen = document.querySelector('.calc_screen');
     let butt = e.target.textContent;
     if (operator) {
         num2 += butt;
+        screen.textContent = `${num1}${operator}${num2}`;
     }
     else {
         num1 += butt;
+        screen.textContent = `${num1}`;
     }
 }
 
@@ -109,11 +126,19 @@ function handleClear() {
 }
 
 function handleOperClick(e) {
+    let screen = document.querySelector('.calc_screen');
     if (operator) {
         num1 = operate(num1, operator, num2);
-        // console.log(num1);
-    }
+        screen.textContent = num1;
+        if (isNaN(num1)) {
+            setTimeout(() => {
+                handleClear();
+            }, 2000)
+        }
+    } 
     operator = e.target.textContent;
     num2 = '';
+    screen.textContent = `${num1}${operator}`;
 }
+
 
