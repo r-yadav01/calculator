@@ -95,7 +95,7 @@ function handleEqual() {
         printScreen(result);
         setTimeout(() => {
             handleClear();
-        }, 2000)
+        }, 1000)
     } else {
         handleClear();
         printScreen(result);
@@ -130,7 +130,7 @@ function handleOperClick(e) {
         if (isNaN(num1)) {
             setTimeout(() => {
                 handleClear();
-            }, 2000)
+            }, 1000)
         }
     } 
     operator = e.target.textContent;
