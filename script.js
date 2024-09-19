@@ -19,7 +19,9 @@ let num2 = '';
 let operator;
 const operators = ['+', '-', '*', '/'];
 let operUsed = false;
-// let decInuse = 0;
+let deci1Used = false;
+let deci2Used = false;
+
 
 function operate(firNum, operator, secNum) {
     let result = null;
@@ -29,7 +31,7 @@ function operate(firNum, operator, secNum) {
     if (isNaN(firNum) || isNaN(secNum)) {
         console.log(`firNum: ${firNum}, secNum: ${secNum}, operator: ${operator}`);
         handleClear();
-        return "numbers invalid";
+        return "operands invalid";
     }
 
     switch (operator) {
@@ -82,38 +84,33 @@ function addButtListeners() {
 
     let equal = document.querySelector('.equals');
     equal.addEventListener('click', handleEqual, true);
+
+    let decimal = document.querySelector('.decimal');
+    decimal.addEventListener('click', handleDecimal, true);
 }
 
-// function removeButtListeners() {
-
-// }
-
 function handleEqual() {
-    let screen = document.querySelector('.calc_screen');
     let result = operate(num1, operator, num2);
     if (isNaN(result)) {
-        screen.textContent = result;
-        // removeButtListeners();
+        printScreen(result);
         setTimeout(() => {
             handleClear();
-            // addButtListeners();
         }, 2000)
     } else {
         handleClear();
-        screen.textContent = result;
+        printScreen(result);
     }
 }
 
 function handleNumClick(e) {
-    let screen = document.querySelector('.calc_screen');
     let butt = e.target.textContent;
     if (operator) {
         num2 += butt;
-        screen.textContent = `${num1}${operator}${num2}`;
+        printScreen(num1, operator, num2);
     }
     else {
         num1 += butt;
-        screen.textContent = `${num1}`;
+        printScreen(num1);
     }
 }
 
@@ -121,15 +118,15 @@ function handleClear() {
     num1 = '';
     num2 = '';
     operator = '';
-    let screen = document.querySelector('.calc_screen');
-    screen.textContent = '';
+    printScreen();
+    deci1Used = false;
+    deci2Used = false;
 }
 
 function handleOperClick(e) {
-    let screen = document.querySelector('.calc_screen');
     if (operator) {
         num1 = operate(num1, operator, num2);
-        screen.textContent = num1;
+        printScreen(num1)
         if (isNaN(num1)) {
             setTimeout(() => {
                 handleClear();
@@ -137,8 +134,28 @@ function handleOperClick(e) {
         }
     } 
     operator = e.target.textContent;
+    deci1Used = false;
+    deci2Used = false;
     num2 = '';
-    screen.textContent = `${num1}${operator}`;
+    printScreen(num1, operator);
 }
 
+function handleDecimal(e) {
+    let butt = e.target.textContent;
 
+    if (operator && !deci2Used) {
+        num2 += butt;
+        printScreen(num1, operator, num2);
+        deci2Used = true;
+    }
+    else if (!operator && !deci1Used) {
+        num1 += butt;
+        printScreen(num1);
+        deci1Used = true;
+    }
+}
+
+function printScreen(oper1='', symbol='', oper2='') {
+    let screen = document.querySelector('.calc_screen');
+    screen.textContent = `${oper1}${symbol}${oper2}`;
+}
