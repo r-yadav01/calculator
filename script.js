@@ -31,7 +31,7 @@ function operate(firNum, operator, secNum) {
     if (isNaN(firNum) || isNaN(secNum)) {
         console.log(`firNum: ${firNum}, secNum: ${secNum}, operator: ${operator}`);
         handleClear();
-        return "operands invalid";
+        return "operands error";
     }
 
     switch (operator) {
@@ -53,7 +53,7 @@ function operate(firNum, operator, secNum) {
             }
             break;
         default:
-            result = "operator invalid";
+            result = "operator error";
             break;
     }
     return result;
@@ -156,6 +156,40 @@ function handleDecimal(e) {
 }
 
 function printScreen(oper1='', symbol='', oper2='') {
+    oper1 = oper1.toString();
+    oper2 = oper2.toString();
     let screen = document.querySelector('.calc_screen');
-    screen.textContent = `${oper1}${symbol}${oper2}`;
+    
+    if (oper1.includes('.')) {
+        oper1 = roundOperand(oper1);
+    } 
+
+    if (oper2.includes('.')) {
+        oper2 = roundOperand(oper2);
+    } 
+
+    let content = `${oper1}${symbol}${oper2}`;
+
+    if (content.length > 16) {
+        if (operators.some(operator => content.includes(operator))) {
+            content = content.slice(-16);  
+        }
+        else if (!operators.some(operator => content.includes(operator)) && content.includes('.')){
+            content = roundOperand(content).toString();
+            content = content.slice(0,16);
+        }
+    }
+    screen.textContent = content;
+}
+
+function roundOperand(operand, place=4) {
+    let decimalPart = operand.slice(operand.indexOf('.'));
+    let integralPart = operand.slice(0, operand.indexOf('.'));
+
+    if (decimalPart.length > place+1) {
+        decimalPart = parseFloat(decimalPart).toFixed(place);
+    } else if (decimalPart.length === 1) 
+        decimalPart += '0'; 
+
+    return (parseInt(integralPart) + parseFloat(decimalPart));
 }
