@@ -25,6 +25,11 @@ let deci2Used = false;
 
 function operate(firNum, operator, secNum) {
     let result = null;
+
+    // for idiots testing all edge cases
+    if (firNum === '.') firNum = '0';
+    if (secNum === '.') secNum = '0';
+
     firNum = parseFloat(firNum);
     secNum = parseFloat(secNum);
 
@@ -104,11 +109,11 @@ function handleEqual() {
 
 function handleNumClick(e) {
     let butt = e.target.textContent;
-    if (operator) {
+    if (operator && num2.length < 16) {
         num2 += butt;
         printScreen(num1, operator, num2);
     }
-    else {
+    else if (num1.length < 16) {
         num1 += butt;
         printScreen(num1);
     }
@@ -162,7 +167,7 @@ function printScreen(oper1='', symbol='', oper2='') {
     
     if (oper1.includes('.')) {
         oper1 = roundOperand(oper1);
-    } 
+    }
 
     if (oper2.includes('.')) {
         oper2 = roundOperand(oper2);
@@ -186,10 +191,13 @@ function roundOperand(operand, place=4) {
     let decimalPart = operand.slice(operand.indexOf('.'));
     let integralPart = operand.slice(0, operand.indexOf('.'));
 
+    if (integralPart == '') 
+        integralPart = '0';
+
     if (decimalPart.length > place+1) {
         decimalPart = parseFloat(decimalPart).toFixed(place);
     } else if (decimalPart.length === 1) 
-        decimalPart += '0'; 
+        decimalPart += '0';
 
     return (parseInt(integralPart) + parseFloat(decimalPart));
 }

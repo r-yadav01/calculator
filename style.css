@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    font-family: monospace;
+    font-family: serif;
 }
 
 body {
@@ -10,6 +10,12 @@ body {
     justify-content: center;
     background-color:beige;
 }
+
+button:active {
+    transform: translateY(1px);
+    font-weight: bold;
+}
+
 .calc_body {
     border: 10px saddlebrown;
     border-style:ridge;
@@ -34,7 +40,7 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    background-color: wheat;
+    background-color: #32bf94bb;
 }
 
 .butt_row {
