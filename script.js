@@ -51,7 +51,7 @@ function operate(firNum, operator, secNum) {
             break;
         case '/':
             if (secNum == 0) {
-                result = "don't do it!";
+                result = "Don't do it!";
                 handleClear();
             } else {
                 result = divide(firNum, secNum);
@@ -109,11 +109,11 @@ function handleEqual() {
 
 function handleNumClick(e) {
     let butt = e.target.textContent;
-    if (operator && num2.length < 16) {
+    if (operator && num2.length < 13) {
         num2 += butt;
         printScreen(num1, operator, num2);
     }
-    else if (num1.length < 16) {
+    else if (num1.length < 13) {
         num1 += butt;
         printScreen(num1);
     }
@@ -175,13 +175,13 @@ function printScreen(oper1='', symbol='', oper2='') {
 
     let content = `${oper1}${symbol}${oper2}`;
 
-    if (content.length > 16) {
+    if (content.length > 13) {
         if (operators.some(operator => content.includes(operator))) {
-            content = content.slice(-16);  
+            content = content.slice(-13);  
         }
         else if (!operators.some(operator => content.includes(operator)) && content.includes('.')){
             content = roundOperand(content).toString();
-            content = content.slice(0,16);
+            content = content.slice(0,13);
         }
     }
     screen.textContent = content;
