@@ -1,6 +1,15 @@
+@font-face {
+    font-family: 'modern_mono';
+    src: url('lmmonocaps10-regular-webfont.woff2') format('woff2'),
+         url('lmmonocaps10-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 * {
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: 'modern_mono', serif;
 }
 
 body {
@@ -33,7 +42,8 @@ button:active {
 .calc_screen {
     border: 5px ridge burlywood;
     border-radius: 1%;
-    padding: 5px;
+    font-family: 'modern_mono', sans-serif;
+    padding: 2px;
     width: 100%;
     height: 60px;
     font-size: xx-large;
@@ -53,8 +63,8 @@ button:active {
 .butt_row button {
     width: 55px;
     height: 55px;
-    font-size: xx-large;
-    font-family: monospace;
+    font-size: x-large;
+    font-family: serif;
     border-color: darkgoldenrod;
     border-width: 3.5px;
     border-radius: 1px;
