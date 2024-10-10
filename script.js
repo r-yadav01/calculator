@@ -34,9 +34,9 @@ function operate(firNum, operator, secNum) {
     secNum = parseFloat(secNum);
 
     if (isNaN(firNum) || isNaN(secNum)) {
-        console.log(`firNum: ${firNum}, secNum: ${secNum}, operator: ${operator}`);
+        // console.log(`firNum: ${firNum}, secNum: ${secNum}, operator: ${operator}`);
         handleClear();
-        return "operands error";
+        return "operands_err";
     }
 
     switch (operator) {
@@ -51,14 +51,14 @@ function operate(firNum, operator, secNum) {
             break;
         case '/':
             if (secNum == 0) {
-                result = "Don't do it!";
+                result = "Plz don't!";
                 handleClear();
             } else {
                 result = divide(firNum, secNum);
             }
             break;
         default:
-            result = "operator error";
+            result = "operator_err";
             break;
     }
     return result;

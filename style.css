@@ -1,9 +1,9 @@
 @font-face {
     font-family: 'modern_mono';
-    src: url('lmmonocaps10-regular-webfont.woff2') format('woff2'),
-         url('lmmonocaps10-regular-webfont.woff') format('woff');
+    src: url('lmmonocaps10-regular-webfont.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 
 }
 
@@ -40,7 +40,7 @@ button:active {
 }
 
 .calc_screen {
-    border: 5px ridge burlywood;
+    border: 5px ridge saddlebrown;
     border-radius: 1%;
     font-family: 'modern_mono', sans-serif;
     padding: 2px;
@@ -76,6 +76,11 @@ button.wide_butt {
 
 button.operator, button.equals, button.clear{
     border-color:sienna;
+    font-family: 'modern_mono', serif;
+}
+
+button.equals {
+    font-family: serif;
 }
 
 button.clear, button.equals {
