@@ -36,7 +36,7 @@ function operate(firNum, operator, secNum) {
     if (isNaN(firNum) || isNaN(secNum)) {
         // console.log(`firNum: ${firNum}, secNum: ${secNum}, operator: ${operator}`);
         handleClear();
-        return "operands_err";
+        return "operand_error";
     }
 
     switch (operator) {
@@ -51,14 +51,14 @@ function operate(firNum, operator, secNum) {
             break;
         case '/':
             if (secNum == 0) {
-                result = "Plz don't!";
+                result = "Plz don't !";
                 handleClear();
             } else {
                 result = divide(firNum, secNum);
             }
             break;
         default:
-            result = "operator_err";
+            result = "operator_error";
             break;
     }
     return result;
@@ -92,7 +92,20 @@ function addButtListeners() {
 
     let decimal = document.querySelector('.decimal');
     decimal.addEventListener('click', handleDecimal, true);
+
+    // let backspace = document.querySelector('.backspace');
+    // backspace.addEventListener('click', handleBackspace);
 }
+
+
+// function handleBackspace() {
+//     let screen = document.querySelector('.calc_screen');
+//     let screen_content = screen.textContent;
+//     if (screen_content.length) {
+//         screen_content = screen_content.slice(0,-1);
+//         printScreen(screen_content);
+//     }
+// }
 
 function handleEqual() {
     let result = operate(num1, operator, num2);

@@ -64,7 +64,6 @@ button:active {
     width: 55px;
     height: 55px;
     font-size: x-large;
-    font-family: serif;
     border-color: darkgoldenrod;
     border-width: 3.5px;
     border-radius: 1px;
@@ -76,7 +75,6 @@ button.wide_butt {
 
 button.operator, button.equals, button.clear{
     border-color:sienna;
-    font-family: 'modern_mono', serif;
 }
 
 button.equals {
