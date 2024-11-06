@@ -16,7 +16,7 @@ function divide(first, second) {
 
 let num1 = '';
 let num2 = '';
-let operator;
+let operator = '';
 const operators = ['+', '-', '*', '/'];
 let operUsed = false;
 let deci1Used = false;
@@ -70,6 +70,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function addButtListeners() {
 
+    document.addEventListener('keydown', keyPressed);
+    document.addEventListener('keyup', keyReleased);
+
     let clear = document.querySelector('.clear');
     clear.addEventListener('click', () => {
         handleClear();
@@ -93,30 +96,58 @@ function addButtListeners() {
     let decimal = document.querySelector('.decimal');
     decimal.addEventListener('click', handleDecimal, true);
 
-    // let backspace = document.querySelector('.backspace');
-    // backspace.addEventListener('click', handleBackspace);
+    let backspace = document.querySelector('.backspace');
+    backspace.addEventListener('click', handleBackspace);
+
+}
+
+function keyPressed(event) {
+    const keyValue = event.key;
+    const buttPressed = document.querySelector(`button[data-key="${keyValue}"]`);
+    if (buttPressed) {
+        buttPressed.blur();
+    }
+
+}
+
+function keyReleased(event) {
+    const keyValue = event.key;
+    const buttPressed = document.querySelector(`button[data-key="${keyValue}"]`);
+    // console.log(keyValue + ' ' + buttPressed);
+    if (buttPressed) {
+        buttPressed.click();
+        buttPressed.focus();
+    }
 }
 
 
-// function handleBackspace() {
-//     let screen = document.querySelector('.calc_screen');
-//     let screen_content = screen.textContent;
-//     if (screen_content.length) {
-//         screen_content = screen_content.slice(0,-1);
-//         printScreen(screen_content);
-//     }
-// }
+function handleBackspace() {
+    if (operator) {
+        if (num2.length > 0) {
+            num2 = num2.slice(0,-1);
+        }
+        else {
+            operator = '';
+        }
+        printScreen(num1,operator,num2);
+    }
+    else {
+        num1 = num1.slice(0,-1);
+        printScreen(num1);
+    }
+}
 
 function handleEqual() {
-    let result = operate(num1, operator, num2);
-    if (isNaN(result)) {
-        printScreen(result);
+    num1 = operate(num1, operator, num2);
+    if (isNaN(num1)) {
+        printScreen(num1);
         setTimeout(() => {
             handleClear();
         }, 1000)
     } else {
-        handleClear();
-        printScreen(result);
+        printScreen(num1);
+        num2 = '';
+        operator = '';
     }
 }
 
@@ -144,6 +175,8 @@ function handleClear() {
 function handleOperClick(e) {
     if (operator) {
         num1 = operate(num1, operator, num2);
+        operator = '';
+        num2 = '';
         printScreen(num1)
         if (isNaN(num1)) {
             setTimeout(() => {
